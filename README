@@ -1,0 +1,21 @@
+All the scripts here (ok, there's only one...) must be executed with
+PhantomJS (http://phantomjs.org/).
+
+urlgrabber.js
+=============
+
+Grabs all URLs recursively until all URLs have been crawled.
+
+Usage: urlgrabber.js [options] <url> [...]
+Options:
+- concurrency=N
+     Number of concurrent queries (default: 4)
+- filter-query-string=<0|1>
+     Filter out query string from grabbed URLs (default: 0)
+- filter-hash-tag=<0|1>
+     Filter out fragments from grabbed URLs (default: 0)
+- filter-regex=<regex>
+     Filter out URLs that do not match this regex
+Note:
+  It is strongly advise to use a regular expression in order
+  to avoid crawling the entire world wide web.
