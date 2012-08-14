@@ -79,7 +79,7 @@ Job.prototype.run = function(filterqs, filterht, filterre) {
 	this.page.onLoadStarted = function() {
 		//console.log("# Starting " + job.url);
 		job._t = Date.now();
-		jobclass.prototype.running += 1;
+		//jobclass.prototype.running += 1;
 	}
 
 	this.page.onLoadFinished = function(status) {
@@ -183,6 +183,7 @@ function mainloop() {
 		if (url == undefined)
 			break;
 		var job = new Job(url);
+		Job.prototype.running += 1;
 		job.run(filterqs, filterht, filterre);
 	}
 	url = null;
