@@ -65,6 +65,7 @@ function Job(url) {
 	console.log(url);
 	this.page = require('webpage').create();
 	this.url = url;
+	Job.prototype.running += 1;
 }
 
 Job.prototype.running = 0;
@@ -95,7 +96,7 @@ Job.prototype.run = function(filterqs, filterht, filterre) {
 			    filterqs, filterht, filterre);
 			
 			job.page.release()
-			job.page = null;	// avoid mem leaks
+			job.page = null;	// free mem asap
 			jobclass.prototype.running -= 1;
 
 			/*
@@ -103,7 +104,6 @@ Job.prototype.run = function(filterqs, filterht, filterre) {
 			    ' is ' + pageinfo.title +
 			    ' (' + pageinfo.links.length + ' links)');
 			*/
-			job = null;		// avoid mem leaks
 
 			var i;
 			for (i = 0; i < pageinfo.links.length; i++) {
@@ -115,7 +115,6 @@ Job.prototype.run = function(filterqs, filterht, filterre) {
 				Job.prototype.todo.push(pageinfo.links[i]);
 				console.log(pageinfo.links[i]);
 			}
-			pageinfo = null;	// avoid mem leaks
 		}
 	}
 
@@ -183,7 +182,6 @@ function mainloop() {
 		if (url == undefined)
 			break;
 		var job = new Job(url);
-		Job.prototype.running += 1;
 		job.run(filterqs, filterht, filterre);
 	}
 	url = null;
