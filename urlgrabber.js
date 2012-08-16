@@ -36,8 +36,11 @@ function getPageInfo(filterqs, filterht, filterre) {
 		htre = new RegExp('([^#]*)(#.*)?');
 	if (filterre != null)
 		filre = new RegExp(filterre);
+	httpre = new RegExp("^https?\:\/\/");
 
 	for (i = 0; i < document.links.length; i++) {
+		if (!document.links[i].href.match(httpre))
+			continue;
 		if (filre != null &&
 		    !document.links[i].href.match(filre))
 			continue;
